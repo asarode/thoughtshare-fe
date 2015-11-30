@@ -1,0 +1,65 @@
+@import 'theme'
+@import 'base'
+@import 'topbar'
+@import 'action-modal'
+@import 'create'
+@import 'dropdown'
+@import 'post'
+
+.DropDown
+  position: relative
+
+  &:hover
+    cursor: pointer
+
+.DropDown-menu
+  position: absolute
+  right: 0
+  width: 160px
+  background: #fcfcfc
+  margin-top: 15px
+  border: 1px solid #a0a0a0
+  border-radius: 2px
+
+  &:after,
+  &:before
+    bottom: 100%
+    left: 80%
+    border: solid transparent
+    content: ' '
+    height: 0
+    width: 0
+    position: absolute
+    pointer-events: none
+
+  &:after
+    border-color: rgba(252, 252, 252, 0)
+    border-bottom-color: #fcfcfc
+    border-width: 6px
+    margin-left: -6px
+
+  &:before
+    border-color: rgba(160, 160, 160, 0)
+    border-bottom-color: #a0a0a0
+    border-width: 7px
+    margin-left: -7px
+
+.DropDown-row
+  border-top: 1px solid #d0d0d0
+
+  &:first-of-type
+    border-top: none
+
+  button
+    border: none
+    background: none
+    display: block
+    width: 100%
+    font-size: 14px
+    font-weight: bold
+    color: #484848
+    padding: 6px 0
+
+    &:hover
+      color: #000
+      background: #fff

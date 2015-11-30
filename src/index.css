@@ -1,0 +1,301 @@
+* {
+  font-family: Arial;
+}
+input,
+textarea {
+  width: 100%;
+  border-radius: 2px;
+  border: 1px solid #d6d6d6;
+  padding: 6px;
+  font-size: 14px;
+  background: #fcfcfc;
+}
+input:hover,
+input:focus,
+input:active,
+input:active:focus,
+textarea:hover,
+textarea:focus,
+textarea:active,
+textarea:active:focus {
+  box-shadow: inset 0px 0px 60px 0px #fff;
+  border-color: #a0a0a0;
+  outline: none;
+}
+button.ts-Button {
+  border: 1px solid #d6d6d6;
+  border-bottom-width: 2px;
+  background: #fcfcfc;
+  border-radius: 2px;
+  padding: 6px 15px;
+  font-weight: bold;
+  color: #484848;
+  font-size: 14px;
+}
+button.ts-Button:hover {
+  cursor: pointer;
+  color: #000;
+  background: #fff;
+  border-color: #a0a0a0;
+}
+button:hover {
+  cursor: pointer;
+}
+.ts-TopBar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+  border-bottom: 1px solid #fafafa;
+  padding-bottom: 12px;
+}
+.ts-TopBar div:first-child,
+.ts-TopBar button,
+.ts-TopBar-brandname,
+.ts-TopBar-logo {
+  margin: auto 0;
+}
+.ts-TopBar-brandname,
+.ts-TopBar-logo {
+  display: inline-block;
+  vertical-align: middle;
+}
+.ts-TopBar-center {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.ts-TopBar-left {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0;
+      -ms-flex: 1 0;
+          flex: 1 0;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+}
+.ts-TopBar-right {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0;
+      -ms-flex: 1 0;
+          flex: 1 0;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+.ts-TopBar-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+}
+.ts-ActionModal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: -webkit-linear-gradient(left, rgba(255,255,255,0.8) 0%, #fff 100%);
+  background: linear-gradient(to right, rgba(255,255,255,0.8) 0%, #fff 100%);
+}
+.ts-ActionModal:hover {
+  cursor: pointer;
+}
+.ts-ActionModal-content {
+  float: right;
+  width: 40vw;
+  min-width: 380px;
+  height: 100%;
+  border-left: 1px solid #d6d6d6;
+  background: #fff;
+  padding: 30px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+}
+.ts-ActionModal-content:hover {
+  cursor: default;
+}
+.ts-ActionModal-header {
+  margin: 0;
+}
+.ts-ActionModal-inputrow {
+  margin: 30px 0;
+}
+.ts-DropDown-menu--closed {
+  display: none;
+}
+.ts-DropDown-menu--open {
+  display: block;
+}
+.ts-Post {
+  background: #fff;
+  border: 1px solid rgba(255,255,255,0);
+  padding: 8px;
+  margin: 15px 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 600px;
+  border-radius: 2px;
+  position: relative;
+}
+.ts-Post:hover {
+  cursor: pointer;
+  border-color: #fafafa;
+}
+.ts-Post:hover .ts-muted {
+  opacity: 0.9;
+}
+.ts-Post:hover .ts-Post-deco {
+  -webkit-transition: all 200ms ease;
+          transition: all 200ms ease;
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+  border: 1px solid #f0f0f0;
+}
+.ts-Post:hover .ts-Post-deco:nth-of-type(2) {
+  -webkit-transform: translateX(16px) translateY(8px);
+      -ms-transform: translateX(16px) translateY(8px);
+          transform: translateX(16px) translateY(8px);
+  background-color: #f0f0f0;
+}
+.ts-Post:hover .ts-Post-deco:nth-of-type(3) {
+  -webkit-transform: translateX(8px) translateY(4px);
+      -ms-transform: translateX(8px) translateY(4px);
+          transform: translateX(8px) translateY(4px);
+  background-color: #fafafa;
+}
+.ts-Post-cardhead {
+  margin-right: 8px;
+}
+.ts-Post-cardbody {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.ts-Post-title {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.ts-Post-domain {
+  margin: 4px 0 auto 0;
+}
+.ts-Post-deets {
+  margin-top: auto;
+}
+.ts-Post .ts-muted {
+  font-size: 12px;
+  opacity: 0.4;
+}
+.ts-Post-deco {
+  -webkit-transition: all 200ms ease;
+          transition: all 200ms ease;
+  border: 1px solid #fafafa;
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: calc(100% + 2px);
+  width: 100%;
+  -webkit-transform: scale(0.8);
+      -ms-transform: scale(0.8);
+          transform: scale(0.8);
+  z-index: -1;
+  background: url("assets/subtle_dots.png");
+}
+.ts-Post-scoretext {
+  text-align: center;
+  font-size: 12px;
+}
+.ts-DropDown {
+  position: relative;
+}
+.ts-DropDown:hover {
+  cursor: pointer;
+}
+.ts-DropDown-menu {
+  position: absolute;
+  right: 0;
+  width: 160px;
+  background: #fcfcfc;
+  margin-top: 15px;
+  border: 1px solid #a0a0a0;
+  border-radius: 2px;
+}
+.ts-DropDown-menu:after,
+.ts-DropDown-menu:before {
+  bottom: 100%;
+  left: 80%;
+  border: solid transparent;
+  content: ' ';
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.ts-DropDown-menu:after {
+  border-color: rgba(252,252,252,0);
+  border-bottom-color: #fcfcfc;
+  border-width: 6px;
+  margin-left: -6px;
+}
+.ts-DropDown-menu:before {
+  border-color: rgba(160,160,160,0);
+  border-bottom-color: #a0a0a0;
+  border-width: 7px;
+  margin-left: -7px;
+}
+.ts-DropDown-row {
+  border-top: 1px solid #d0d0d0;
+}
+.ts-DropDown-row:first-of-type {
+  border-top: none;
+}
+.ts-DropDown-row button {
+  border: none;
+  background: none;
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  color: #484848;
+  padding: 6px 0;
+}
+.ts-DropDown-row button:hover {
+  color: #000;
+  background: #fff;
+}

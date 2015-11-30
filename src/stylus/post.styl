@@ -1,0 +1,68 @@
+.Post
+  background: #fff
+  border: 1px solid rgba(255, 255, 255, 0)
+  padding: 8px
+  margin: 15px 0
+  display: flex
+  max-width: 600px
+  border-radius: 2px
+  position: relative
+
+  &:hover
+    cursor: pointer
+    border-color: #fafafa
+
+    .muted
+      opacity: 0.9
+
+    .Post-deco
+      transition: all 200ms ease
+      transform: scale(1.0)
+      border: 1px solid #f0f0f0
+
+      &:nth-of-type(2)
+        transform: translateX(16px) translateY(8px)
+        background-color: #f0f0f0
+
+      &:nth-of-type(3)
+        transform: translateX(8px) translateY(4px)
+        background-color: #fafafa
+
+.Post-cardhead
+  margin-right: 8px
+
+.Post-cardbody
+  flex-grow: 1
+  position: relative
+  display: flex
+  flex-direction: column
+
+.Post-title
+  display: flex
+  justify-content: space-between
+
+.Post-domain
+  margin: 4px 0 auto 0
+
+.Post-deets
+  margin-top: auto
+
+.Post .muted
+  font-size: 12px
+  opacity: 0.4
+
+.Post-deco
+  transition: all 200ms ease
+  border: 1px solid #fafafa
+  position: absolute
+  top: -1px
+  left: 0
+  height: calc(100% + 2px)
+  width: 100%
+  transform: scale(0.8)
+  z-index: -1
+  background: url('assets/subtle_dots.png')
+
+.Post-scoretext
+  text-align: center
+  font-size: 12px

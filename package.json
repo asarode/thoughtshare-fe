@@ -1,0 +1,44 @@
+{
+  "name": "loopy",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "dev": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "stylus": "stylus -u autoprefixer-stylus --watch --prefix 'ts-' 'src/stylus/index.styl' --out 'src/index.css'"
+  },
+  "author": "Arjun Sarode <sarodearjun57@gmail.com> (http://arjun.ink/)",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.0"
+  },
+  "dependencies": {
+    "autobind-decorator": "^1.3.2",
+    "bluebird": "^2.10.2",
+    "classname": "0.0.0",
+    "css-loader": "^0.22.0",
+    "extract-text-webpack-plugin": "^0.9.1",
+    "history": "^1.13.1",
+    "immutable": "^3.7.5",
+    "isomorphic-fetch": "^2.2.0",
+    "jsonwebtoken": "^5.4.1",
+    "moment": "^2.10.6",
+    "ramda": "^0.18.0",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-redux": "^3.1.0",
+    "react-router": "^1.0.0",
+    "redux": "^3.0.2",
+    "redux-logger": "^2.0.4",
+    "redux-thunk": "^1.0.0",
+    "rx": "^4.0.6",
+    "style-loader": "^0.13.0",
+    "stylus-loader": "^1.4.2",
+    "superagent": "^1.4.0",
+    "superagent-bluebird-promise": "^2.1.1"
+  }
+}
