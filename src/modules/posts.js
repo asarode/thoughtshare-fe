@@ -83,9 +83,11 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         entities: {
           posts: {
+            ...state.entities.posts,
             [payload.post.id]: payload.post.data
           },
           users: {
+            ...state.entities.users,
             [payload.user.id]: payload.user.data
           }
         },
@@ -108,6 +110,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         entities: {
           posts: {
+            ...state.entities.posts,
             [payload.id]: {
               ...state.entities.posts[payload.id],
               replies: payload.results

@@ -16,6 +16,17 @@ export default class ReplyItem extends Component {
     user: PropTypes.object.isRequired
   }
 
+  get title() {
+    const { props } = this
+    const { link, title } = props.reply
+    if (link) {
+      return (
+        <a href={link}>{title}</a>
+      )
+    }
+    return title
+  }
+
   render() {
     const { props } = this
     return (
@@ -29,7 +40,7 @@ export default class ReplyItem extends Component {
             downs={props.reply.downs}
             user={props.user.username}
             createdAt={props.reply.createdAt}/>
-          <h2 className='ts-ReplyItem-title'>{props.reply.title}</h2>
+          <h2 className='ts-ReplyItem-title'>{this.title}</h2>
           <p className='ts-ReplyItem-desc'>{props.reply.desc}</p>
         </div>
       </div>
