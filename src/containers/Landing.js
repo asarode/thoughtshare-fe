@@ -11,7 +11,7 @@ import * as postActs from '../modules/posts'
 import {
   LoginWidget,
   TopBar,
-  Post
+  PostCard
 } from '../components'
 
 @connect(state => ({
@@ -36,9 +36,9 @@ export default class Landing extends Component {
     const { props } = this
 
     return props.posts.results.map(postId => {
-      let post = props.posts.entities.posts[postId]
+      let post = {...props.posts.entities.posts[postId]}
       post.createdBy = props.posts.entities.users[post.createdBy]
-      return <Post
+      return <PostCard
         key={postId}
         id={post.id}
         title={post.title}

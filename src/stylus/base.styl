@@ -1,6 +1,11 @@
 *
   font-family: Arial
 
+
+body
+  margin: 0
+  padding: 0
+
 input,
 textarea
   width: 100%
@@ -40,3 +45,81 @@ button.Button:hover
 
 button:hover
   cursor: pointer
+
+
+.ExploreBar
+  border-bottom: 1px solid #f0f0f0
+  padding: 6px 15px
+  background-color: #fcfcfc
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+  &-crumbs
+    color: #484848
+
+  span
+    margin-left: 6px
+
+    &:first-of-type
+      margin-left: 0
+
+.ScoreBox
+  display: inline-block
+  text-align: center
+
+.ScoreBox-score
+  font-size: 12px
+
+.PostItem
+  display:  flex
+  max-width: 520px
+
+.PostItem-wrap
+  display: flex
+  justify-content: center
+  padding: 60px 0
+  border-bottom: 1px solid #f0f0f0
+
+.PostItem-body
+  margin-left: 12px
+  display: inline-block
+
+.PostItem-title
+  margin: 0
+  font-weight: normal
+  font-size: 22px
+
+.PostItem-desc
+  line-height: 1.4
+  margin: 0
+  margin-top: 6px
+
+.PostInfo
+  margin-bottom: 6px
+
+  .PostInfo-data
+    font-size: 14px
+    margin-right: 12px
+    color: #484848
+
+.ReplyList-wrap
+  padding: 30px
+
+.ReplyItem
+  @extend .PostItem
+  margin-bottom: 30px
+
+  .PostInfo-data
+    font-size: 12px
+
+.ReplyItem-body
+  @extend .PostItem-body
+
+.ReplyItem-title
+  @extend .PostItem-title
+  font-size: 16px
+
+.ReplyItem-desc
+  @extend .PostItem-desc
+  font-size: 14px

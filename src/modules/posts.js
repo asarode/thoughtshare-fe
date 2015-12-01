@@ -13,7 +13,11 @@ const FETCH_REPLIES_FAIL = 'thoughtshare-fe/posts/FETCH_REPLIES_FAIL'
 
 const initialState = {
   isLoading: false,
-  entities: {},
+  entities: {
+    posts: {},
+    users: {},
+    replies: {}
+  },
   // posts: {
   //   [id]: {
   //     id,
@@ -78,8 +82,12 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         entities: {
-          posts: payload.post,
-          users: payload.user
+          posts: {
+            [payload.post.id]: payload.post.data
+          },
+          users: {
+            [payload.user.id]: payload.user.data
+          }
         },
         error: null,
         isLoading: false
@@ -106,10 +114,19 @@ export default function reducer(state = initialState, action = {}) {
             }
           },
           replies: payload.replies,
-          users: payload.users
+          users: {
+            ...state.entities.users,
+            ...payload.users
+          }
         },
         error: null,
         isLoading: false,
+      }
+    case FETCH_REPLIES_FAIL:
+      return {
+        ...state,
+        error: payload,
+        isLoading: false
       }
     case FETCH_ONE_POST_FAIL:
       return {
@@ -189,10 +206,12 @@ function transformOnePost(data) {
 
   return {
     post: {
-      [post.id]: post
+      id: post.id,
+      data: post
     },
     user: {
-      [user.id]: user
+      id: user.id,
+      data: user
     }
   }
 }
