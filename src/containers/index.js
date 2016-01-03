@@ -1,6 +1,0 @@
-export { default as App } from './App'
-export { default as Landing } from './Landing'
-export { default as ActionModal } from './ActionModal'
-export { default as Create } from './Create'
-export { default as Login } from './Login'
-export { default as PostView } from './PostView'
