@@ -3,23 +3,21 @@ import { NoteCard } from '.'
 
 export default class NoteList extends Component {
   static propTypes = {
-    notes: PropTypes.object.isRequired,
-    ids: PropTypes.array.isRequired
+    hasNotesData: PropTypes.bool.isRequired,
+    notes: PropTypes.array
   };
   
   render() {
-    const { notes, ids } = this.props
-    if (
-      ids.find(id => !notes.hasIn(['docs', id]))
-      || notes.getIn(['isLoadingList'])
-    ) {
+    if (!this.props.hasNotesData) {
       return <div>Loading...</div>
     }
 
+    console.log(this.props.notes)
+    const noteNodes = this.props.notes
+      .map(note => (<NoteCard key={note.id} note={note} />))
+
     return <div className='NoteList'>
-      {ids.map(id => {
-        return <NoteCard key={id} note={notes.getIn(['docs', id])} />
-      })}
+      {noteNodes}
     </div>
   }
 }

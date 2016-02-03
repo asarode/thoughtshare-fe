@@ -6,53 +6,38 @@ import {
 
 export default class ThoughtPage extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired,
-    ui: PropTypes.object.isRequired,
-    auth: PropTypes.object.isRequired,
-    entities: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
-    uiActs: PropTypes.object.isRequired,
-    groupActs: PropTypes.object.isRequired
+    hasThoughtData: PropTypes.bool.isRequired,
+    thought: PropTypes.object,
+    hasRelatedGroupsData: PropTypes.bool,
+    relatedGroups: PropTypes.array,
+    hasNotesData: PropTypes.bool.isRequired,
+    notes: PropTypes.array,
+    goToGroup: PropTypes.func.isRequired
   };
 
-  componentWillMount() {
-    if (!this.props.entities.groups.getIn(['isLoading'])) {
-      this.props.groupActs.fetchOne(this.props.id)
-    }
-  }
-
-  componentWillReceiveProps(next) {
-    if (this.props.id !== next.id) {
-      next.groupActs.fetchOne(next.id)
-    }
-  }
-
   render() {
-    if (
-      !this.props.entities.groups.getIn(['meta', this.props.id, 'fullyLoaded'])
-      || this.props.entities.groups.getIn(['isLoading'])) {
+    if (!this.props.hasThoughtData) {
       return <div>Loading...</div>
     }
-    const currentGroup = this.props.entities.groups.getIn(['docs', this.props.id])
-    const relatedIds = this.props.entities.groups.getIn(['docs', this.props.id, 'groups']).toJS()
+
     return <div>
       <div className='row'>
-        <div className='col-xs-12
-                        col-sm-10
-                        col-md-8
-                        col-lg-6'>
+        <div className='col-xs-12 col-sm-10 col-md-8 col-lg-6'>
           <CurrentThoughtWidget
-            history={this.props.history}
-            groups={this.props.entities.groups}
-            thought={currentGroup}
-            relatedIds={relatedIds} />
+            hasThoughtData={this.props.hasThoughtData}
+            thought={this.props.thought}
+            hasRelatedGroupsData={this.props.hasRelatedGroupsData}
+            relatedGroups={this.props.relatedGroups}
+            hasNotesData={this.props.hasNotesData}
+            notes={this.props.notes}
+            goToGroup={this.props.goToGroup} />
         </div>
       </div>
       <div className='row'>
         <div className='col-xs-12'>
           <NoteList
-            notes={this.props.entities.notes}
-            ids={this.props.entities.groups.getIn(['docs', this.props.id, 'notes']).toJS()} />
+            hasNotesData={this.props.hasNotesData}
+            notes={this.props.notes} />
         </div>
       </div>
     </div>

@@ -68,3 +68,21 @@ body
   
   &:hover
     background: lighten(@background, 10%)
+
+form
+  .form-row:not(:first-of-type)
+    margin-top: 1rem
+  
+input[type='text'],
+textarea
+  min-width: 100%
+  padding: 0.5rem
+  font-size: 1.2em
+  margin-top: 0.5rem
+  border-radius: 3px
+  border: 1px solid lighten(#1F99E6, 60%)
+  
+  &:focus,
+  &:active
+    border-color: #1F99E6
+    outline: none

@@ -1,66 +1,57 @@
 import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
-import autobind from 'autobind-decorator'
 
 export default class CurrentThoughtWidget extends Component {
   static propTypes = {
-    history: PropTypes.object.isRequired,
-    groups: PropTypes.object.isRequired,
-    thought: PropTypes.object.isRequired,
-    relatedIds: PropTypes.array.isRequired
+    hasThoughtData: PropTypes.bool.isRequired,
+    thought: PropTypes.object,
+    hasRelatedGroupsData: PropTypes.bool,
+    relatedGroups: PropTypes.array,
+    hasNotesData: PropTypes.bool.isRequired,
+    notes: PropTypes.array,
+    goToGroup: PropTypes.func.isRequired
   };
 
   render() {
-    const { groups, thought, relatedIds } = this.props
-    const thoughtObj = thought.toJS()
+    const { thought } = this.props
     return <div className='CurrentThoughtWidget card'>
       <div className='header content-row'>
-        <p>Title: {thoughtObj.title}</p>
+        <p>Title: {thought.title}</p>
       </div>
       <div className='body content-row'>
-        <p>Description: {thoughtObj.desc}</p>
+        <p>Description: {thought.desc}</p>
       </div>
       <div className='details content-row'>
-        <p>Posted {moment(thoughtObj.created_at).fromNow()} by {thoughtObj.creator.username}</p>
+        <p>Posted {moment(thought.created_at).fromNow()} by {thought.creator.username}</p>
       </div>
       <div className='content-row'>
-        {this.loadRelatedGroups}
+        {this.relatedGroups}
       </div>
     </div>
   }
 
-  get loadRelatedGroups() {
-    const { groups, relatedIds, history } = this.props
-    if (
-      groups.getIn(['isLoadingList'])
-      || relatedIds.find(id => !groups.hasIn(['docs', id]))
-    ) {
+  get relatedGroups() {
+    if (!this.props.hasRelatedGroupsData) {
       return <div>Loading...</div>
-    } else {
-      return <RelatedGroupsWidget
-        groups={relatedIds.map(this.getDoc)}
-        history={history} />
     }
-  }
 
-  @autobind
-  getDoc(id) {
-    return this.props.groups.getIn(['docs', id])
+    return <RelatedGroupsWidget
+      groups={this.props.relatedGroups}
+      goToGroup={this.props.goToGroup} />
   }
 }
 
-const RelatedGroupsWidget = ({ groups, history }) => {
+const RelatedGroupsWidget = ({ groups, goToGroup }) => {
+  const groupNodes = groups.map(group => {
+    return <div
+      key={group.id}
+      className='related-item'
+      onClick={() => goToGroup(group.id)}>
+      <p className='clickable'>{group.title}</p>
+    </div>
+  })
+
   return <div className='RelatedGroupsWidget'>
-    {
-      groups.map(g => {
-        const group = g.toJS()
-        return <div
-          key={group.id}
-          className='related-item'
-          onClick={() => history.pushState(null, `/thoughts/${group.id}`)}>
-          <p className='clickable'>{group.title}</p>
-        </div>
-      })
-    }
+    {groupNodes}
   </div>
 }

@@ -7,7 +7,7 @@ export default class NoteCard extends Component {
   };
 
   render() {
-    const note = this.props.note.toJS()
+    const { note } = this.props
     return <div className='NoteCard card'>
       <div className='content-row header'>
         <a href={note.link} className='clickable'>{note.link}</a>
@@ -16,7 +16,7 @@ export default class NoteCard extends Component {
         <p>{note.desc}</p>
       </div>
       <div className='content-row details'>
-        <p>Posted {moment(note.created_at).fromNow()} by note.creator</p>
+        <p>Posted {moment(note.created_at).fromNow()} by {note.creator.username}</p>
       </div>
     </div>
   }
