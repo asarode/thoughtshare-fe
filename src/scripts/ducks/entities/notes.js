@@ -2,6 +2,7 @@ import I from 'immutable'
 import qs from 'query-string'
 import request from 'superagent-bluebird-promise'
 import { createReducer } from '../../utils'
+import { groupActs } from '.'
 
 const FETCH_LIST_REQUEST = 'FETCH_LIST_REQUEST_NOTES'
 const FETCH_LIST_DONE = 'FETCH_LIST_DONE_NOTES'
@@ -114,7 +115,7 @@ export const create = ({ token, groupId, link, description }) => dispatch => {
     })
     .then(res => {
       dispatch(createDone(null, res.body))
-      dispatch(fetchList(groupId))
+      dispatch(groupActs.fetchOne(groupId))
     })
     .error(err => {
       console.error(err.body)
