@@ -12,6 +12,7 @@ const CREATE_DONE = 'CREATE_DONE_NOTES'
 const initState = I.fromJS({
   docs: {},
   error: [],
+  meta: {},
   isLoadingList: false,
   isLoadingCreate: false
 })
@@ -19,7 +20,7 @@ const notes = createReducer(initState, {
   [FETCH_LIST_REQUEST](state, action) {
     return state.merge({
       error: [],
-      isLoadingList: false
+      isLoadingList: true
     })
   },
   [FETCH_LIST_DONE](state, action) {
@@ -30,9 +31,12 @@ const notes = createReducer(initState, {
         isLoadingList: false
       })
     }
+    console.log(payload.meta)
     return state.merge({
       isLoadingList: false
-    }).mergeDeepIn(['docs'], payload)
+    })
+    .mergeDeepIn(['docs'], payload.docs)
+    .mergeDeepIn(['meta'], payload.meta)
   },
   [CREATE_REQUEST](state, action) {
     return state.merge({
@@ -50,7 +54,9 @@ const notes = createReducer(initState, {
     }
     return state.merge({
       isLoadingCreate: false
-    }).setIn(['docs', payload.id], payload)
+    })
+    .setIn(['docs', payload.id], payload)
+    .setIn(['meta', payload.id, 'fullyLoaded'], false)
   }
 })
 
@@ -84,7 +90,8 @@ const fetchListDone = (err, body) => {
       error: true
     }
   }
-  const flattenedData = body.data.map(item => {
+
+  const docs = body.data.map(item => {
     return {
       id: item.id,
       ...item.attributes,
@@ -97,9 +104,19 @@ const fetchListDone = (err, body) => {
     prev[curr.id] = curr
     return prev
   }, {})
+
+  const meta = body.data.map(item => {
+    return { id: item.id }
+  }).reduce((prev, curr) => {
+    prev[curr.id] = {
+      'fullyLoaded': true
+    }
+    return prev
+  }, {})
+
   return {
     type: FETCH_LIST_DONE,
-    payload: flattenedData
+    payload: { docs, meta }
   }
 }
 
@@ -114,8 +131,9 @@ export const create = ({ token, groupId, link, description }) => dispatch => {
       desc: description
     })
     .then(res => {
-      dispatch(createDone(null, res.body))
+      dispatch(groupActs.dirtyOne(groupId))
       dispatch(groupActs.fetchOne(groupId))
+      dispatch(createDone(null, res.body))
     })
     .error(err => {
       console.error(err.body)

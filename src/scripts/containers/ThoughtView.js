@@ -71,10 +71,9 @@ export default class ThoughtView extends Component {
       .getIn(['docs', this.props.params.id, 'notes'])
       .toJS()
 
-    return !noteIds
-      .find(id =>
-        !this.props.entities.notes
-          .hasIn(['docs', id]))
+    return noteIds
+      .every(id =>
+        this.props.entities.notes.getIn(['meta', id, 'fullyLoaded']))
   }
 
   get loadedNotesData() {

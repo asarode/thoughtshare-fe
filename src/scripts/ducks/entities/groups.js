@@ -8,10 +8,12 @@ const FETCH_LIST_REQUEST = 'FETCH_LIST_REQUEST_GROUPS'
 const FETCH_LIST_DONE = 'FETCH_LIST_DONE_GROUPS'
 const FETCH_ONE_REQUEST = 'FETCH_ONE_REQUEST_GROUPS'
 const FETCH_ONE_DONE = 'FETCH_ONE_DONE_GROUPS'
+const DIRTY_ONE = 'DIRTY_ONE_GROUP'
 
 const initState = I.fromJS({
   docs: {},
   error: [],
+  meta: {},
   isLoading: false,
   isLoadingList: false
 })
@@ -53,6 +55,10 @@ const groups = createReducer(initState, {
     })
     .setIn(['docs', payload.id], I.fromJS(payload))
     .setIn(['meta', payload.id, 'fullyLoaded'], true)
+  },
+  [DIRTY_ONE](state, action) {
+    const { payload } = action
+    return state.setIn(['meta', payload.id, 'fullyLoaded'], false)
   }
 })
 
@@ -110,9 +116,9 @@ export const fetchOne = id => dispatch => {
   request
     .get(`http://localhost:4000/api/v2/groups/${id}`)
     .then(res => {
-      dispatch(fetchOneDone(null, res.body))
       dispatch(fetchList(res.body.links.groups))
       dispatch(noteActs.fetchList(res.body.links.notes))
+      dispatch(fetchOneDone(null, res.body))
     })
     .error(err => {
       console.error(err)
@@ -151,5 +157,10 @@ const fetchOneDone = (err, body) => {
     payload: flattenedData
   }
 }
+
+export const dirtyOne = id => ({
+  type: DIRTY_ONE,
+  payload: { id }
+})
 
 export default groups
