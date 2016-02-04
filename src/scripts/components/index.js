@@ -7,6 +7,7 @@ import ThoughtCreationPage from './ThoughtCreationPage'
 import CurrentThoughtWidget from './CurrentThoughtWidget'
 import NoteList from './NoteList'
 import NoteCard from './NoteCard'
+import NoteCreationWidget from './NoteCreationWidget'
 
 export {
   Topbar,
@@ -17,5 +18,6 @@ export {
   ThoughtCreationPage,
   CurrentThoughtWidget,
   NoteList,
-  NoteCard
+  NoteCard,
+  NoteCreationWidget
 }

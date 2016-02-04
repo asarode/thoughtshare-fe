@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as uiActs from '../ducks/ui'
-import { groupActs } from '../ducks/entities'
+import { groupActs, noteActs } from '../ducks/entities'
 import autobind from 'autobind-decorator'
 import { ThoughtPage } from '../components'
 
@@ -15,7 +15,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   uiActs: bindActionCreators(uiActs, dispatch),
-  groupActs: bindActionCreators(groupActs, dispatch)
+  groupActs: bindActionCreators(groupActs, dispatch),
+  noteActs: bindActionCreators(noteActs, dispatch)
 })
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -39,7 +40,11 @@ export default class ThoughtView extends Component {
       relatedGroups={this.loadedRelatedGroupsData}
       hasNotesData={this.hasNotesData}
       notes={this.loadedNotesData}
-      goToGroup={this.goToGroup} />
+      goToGroup={this.goToGroup}
+      isCreatingNote={this.isCreatingNote}
+      createNote={this.createNote}
+      isLoggedIn={this.isLoggedIn}
+      requestLogin={this.requestLogin} />
   }
 
   get hasThoughtData() {
@@ -108,8 +113,6 @@ export default class ThoughtView extends Component {
   }
 
   relatedGroupsData(props) {
-    console.log(props.entities.groups
-      .getIn(['docs', props.params.id, 'groups']).toJS())
     return props.entities.groups
       .getIn(['docs', props.params.id, 'groups'])
       .toJS()
@@ -127,5 +130,25 @@ export default class ThoughtView extends Component {
   @autobind
   goToGroup(id) {
     this.props.history.pushState(null, `/thoughts/${id}`)
+  }
+
+  get isLoggedIn() {
+    return Boolean(this.props.auth.getIn(['token']))
+  }
+
+  @autobind
+  requestLogin() {
+    this.props.uiActs.openLogin()
+  }
+
+  @autobind
+  createNote({ link, description }) {
+    const token = this.props.auth.getIn(['token'])
+    const groupId = this.props.params.id
+    this.props.noteActs.create({ token, groupId, link, description })
+  }
+
+  get isCreatingNote() {
+    return this.props.entities.notes.getIn(['isLoadingCreate'])
   }
 }

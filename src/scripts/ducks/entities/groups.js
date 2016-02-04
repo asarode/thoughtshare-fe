@@ -73,21 +73,6 @@ export const fetchList = (input, limit=10, skip=0) => dispatch => {
     })
 }
 
-export const fetchOne = id => dispatch => {
-  dispatch(fetchOneRequest())
-  request
-    .get(`http://localhost:4000/api/v2/groups/${id}`)
-    .then(res => {
-      dispatch(fetchOneDone(null, res.body))
-      dispatch(fetchList(res.body.links.groups))
-      dispatch(noteActs.fetchList(res.body.links.notes))
-    })
-    .error(err => {
-      console.error(err)
-      dispatch(fetchOneDone(err.body))
-    })
-}
-
 const fetchListRequest = () => ({
   type: FETCH_LIST_REQUEST,
   payload: null
@@ -114,11 +99,25 @@ const fetchListDone = (err, body) => {
     prev[curr.id] = curr
     return prev
   }, {})
-  console.log(flattenedData)
   return {
     type: FETCH_LIST_DONE,
     payload: flattenedData
   }
+}
+
+export const fetchOne = id => dispatch => {
+  dispatch(fetchOneRequest())
+  request
+    .get(`http://localhost:4000/api/v2/groups/${id}`)
+    .then(res => {
+      dispatch(fetchOneDone(null, res.body))
+      dispatch(fetchList(res.body.links.groups))
+      dispatch(noteActs.fetchList(res.body.links.notes))
+    })
+    .error(err => {
+      console.error(err)
+      dispatch(fetchOneDone(err.body))
+    })
 }
 
 const fetchOneRequest = () => ({

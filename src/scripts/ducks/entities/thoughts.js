@@ -88,40 +88,6 @@ export const fetchList = (limit=10, skip=0) => dispatch => {
     })
 }
 
-export const fetchOne = id => dispatch => {
-  dispatch(fetchOneRequest())
-  request
-    .get(`http://localhost:4000/api/v2/groups/${id}`)
-    .then(res => {
-      dispatch(fetchOneDone(null, res.body))
-      dispatch(groupActs.fetchList(res.body.links.groups))
-      dispatch(noteActs.fetchList(res.body.links.notes))
-    })
-    .error(err => {
-      console.error(err)
-      dispatch(fetchOneDone(err.body))
-    })
-}
-
-export const create = ({ token, title, description }) => dispatch => {
-  dispatch(createRequest())
-  request
-    .post(`http://localhost:4000/api/v2/thoughts`)
-    .type('application/json')
-    .set('Authorization', token)
-    .send({
-      title,
-      desc: description
-    })
-    .then(res => {
-      dispatch(createDone(null, res.body))
-    })
-    .error(err => {
-      console.error(err.body)
-      dispatch(createDone(err.body))
-    })
-}
-
 const fetchListRequest = () => ({
   type: FETCH_LIST_REQUEST,
   payload: null
@@ -154,6 +120,21 @@ const fetchListDone = (err, body) => {
   }
 }
 
+export const fetchOne = id => dispatch => {
+  dispatch(fetchOneRequest())
+  request
+    .get(`http://localhost:4000/api/v2/groups/${id}`)
+    .then(res => {
+      dispatch(fetchOneDone(null, res.body))
+      dispatch(groupActs.fetchList(res.body.links.groups))
+      dispatch(noteActs.fetchList(res.body.links.notes))
+    })
+    .error(err => {
+      console.error(err)
+      dispatch(fetchOneDone(err.body))
+    })
+}
+
 const fetchOneRequest = () => ({
   type: FETCH_ONE_REQUEST,
   payload: null
@@ -183,6 +164,25 @@ const fetchOneDone = (err, body) => {
     type: FETCH_ONE_DONE,
     payload: flattenedData
   }
+}
+
+export const create = ({ token, title, description }) => dispatch => {
+  dispatch(createRequest())
+  request
+    .post(`http://localhost:4000/api/v2/thoughts`)
+    .type('application/json')
+    .set('Authorization', token)
+    .send({
+      title,
+      desc: description
+    })
+    .then(res => {
+      dispatch(createDone(null, res.body))
+    })
+    .error(err => {
+      console.error(err.body)
+      dispatch(createDone(err.body))
+    })
 }
 
 const createRequest = () => ({

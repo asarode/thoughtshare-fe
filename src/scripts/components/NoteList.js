@@ -12,7 +12,6 @@ export default class NoteList extends Component {
       return <div>Loading...</div>
     }
 
-    console.log(this.props.notes)
     const noteNodes = this.props.notes
       .map(note => (<NoteCard key={note.id} note={note} />))
 
