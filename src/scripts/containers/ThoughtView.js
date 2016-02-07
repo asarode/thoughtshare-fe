@@ -44,7 +44,8 @@ export default class ThoughtView extends Component {
       isCreatingNote={this.isCreatingNote}
       createNote={this.createNote}
       isLoggedIn={this.isLoggedIn}
-      requestLogin={this.requestLogin} />
+      requestLogin={this.requestLogin}
+      createGroup={this.createGroup} />
   }
 
   get hasThoughtData() {
@@ -145,6 +146,13 @@ export default class ThoughtView extends Component {
     const token = this.props.auth.getIn(['token'])
     const groupId = this.props.params.id
     this.props.noteActs.create({ token, groupId, link, description })
+  }
+
+  @autobind
+  createGroup({ title, description }) {
+    const token = this.props.auth.getIn(['token'])
+    const groupId = this.props.params.id
+    this.props.groupActs.create({ token, groupId, title, description })
   }
 
   get isCreatingNote() {

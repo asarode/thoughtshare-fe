@@ -1,7 +1,16 @@
 import React, { Component, PropTypes } from 'react'
+import cx from 'classname'
 import moment from 'moment'
 
 export default class CurrentThoughtWidget extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      affixWidget: true
+    }
+  }
+
   static propTypes = {
     hasThoughtData: PropTypes.bool.isRequired,
     thought: PropTypes.object,

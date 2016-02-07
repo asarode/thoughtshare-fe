@@ -8,6 +8,8 @@ const FETCH_LIST_REQUEST = 'FETCH_LIST_REQUEST_GROUPS'
 const FETCH_LIST_DONE = 'FETCH_LIST_DONE_GROUPS'
 const FETCH_ONE_REQUEST = 'FETCH_ONE_REQUEST_GROUPS'
 const FETCH_ONE_DONE = 'FETCH_ONE_DONE_GROUPS'
+const CREATE_REQUEST = 'CREATE_REQUEST_GROUPS'
+const CREATE_DONE = 'CREATE_DONE_GROUPS'
 const DIRTY_ONE = 'DIRTY_ONE_GROUP'
 
 const initState = I.fromJS({
@@ -15,7 +17,8 @@ const initState = I.fromJS({
   error: [],
   meta: {},
   isLoading: false,
-  isLoadingList: false
+  isLoadingList: false,
+  isLoadingCreate: false
 })
 const groups = createReducer(initState, {
   [FETCH_LIST_REQUEST](state, action) {
@@ -55,6 +58,26 @@ const groups = createReducer(initState, {
     })
     .setIn(['docs', payload.id], I.fromJS(payload))
     .setIn(['meta', payload.id, 'fullyLoaded'], true)
+  },
+  [CREATE_REQUEST](state, action) {
+    return state.merge({
+      error: [],
+      isLoadingCreate: true
+    })
+  },
+  [CREATE_DONE](state, action) {
+    const { payload, error } = action
+    if (error) {
+      return state.merge({
+        error: payload,
+        isLoading: false
+      })
+    }
+    return state.mergeDeep({
+      isLoadingCreate: false
+    })
+    .setIn(['docs', payload.id], I.fromJS(payload))
+    .setIn(['meta', payload.id, 'fullyLoaded'], false)
   },
   [DIRTY_ONE](state, action) {
     const { payload } = action
@@ -154,6 +177,49 @@ const fetchOneDone = (err, body) => {
   }
   return {
     type: FETCH_ONE_DONE,
+    payload: flattenedData
+  }
+}
+
+export const create = ({ token, title, description, groupId }) => dispatch => {
+  dispatch(createRequest())
+  request
+    .post(`http://localhost:4000/api/v2/groups/${groupId}/groups`)
+    .type('application/json')
+    .set('Authorization', token)
+    .send({
+      title,
+      desc: description
+    })
+    .then(res => {
+      dispatch(createDone(null, res.body))
+    })
+    .error(err => {
+      console.error(err.body)
+      dispatch(createDone(err.body))
+    })
+}
+
+const createRequest = () => ({
+  type: CREATE_REQUEST,
+  payload: null
+})
+
+const createDone = (err, body) => {
+  if (err) {
+    return {
+      type: CREATE_DONE,
+      payload: err.errors,
+      error: true
+    }
+  }
+
+  const flattenedData = {
+    id: body.data.id,
+    ...body.data.attributes
+  }
+  return {
+    type: CREATE_DONE,
     payload: flattenedData
   }
 }
