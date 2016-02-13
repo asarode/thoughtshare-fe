@@ -7,6 +7,34 @@ html
 body
   font-family: 'Noto Sans', sans-serif
   background: #fafafa
+  
+  &.modal-open
+    overflow: hidden
+
+.flexrow
+  display: flex
+
+h1
+  font-size: 1.8em
+  line-height: 1.8
+
+.vmar-compact
+  margin-top: 10px
+  margin-bottom: 10px
+
+.vmar-normal
+  margin-top: 20px
+  margin-bottom: 20px
+
+.vmar-spacious
+  margin-top: 30px
+  margin-bottom: 30px
+
+.vmar-no-top
+  margin-top: 0
+
+.vmar-no-bottom
+  margin-bottom: 0
 
 .MainView
   padding: 1rem
@@ -69,11 +97,12 @@ body
   &:hover
     background: lighten(@background, 10%)
 
-form
+.form
   .form-row:not(:first-of-type)
     margin-top: 1rem
   
 input[type='text'],
+input[type='password'],
 textarea
   min-width: 100%
   padding: 0.5rem

@@ -11,6 +11,7 @@ export default class GroupCreationWidget extends Component {
   }
 
   render() {
+    if (!this.props.isOwner) return null
     return <div className='GroupCreationWidget'>
       {this.openButton}
       {this.creationForm}
@@ -30,7 +31,7 @@ export default class GroupCreationWidget extends Component {
 
     return <div className='card'>
       <p className='content-row header'>Create a branch</p>
-      <form className='content-row'>
+      <div className='form content-row'>
         <div className='form-row row start-xs'>
           <div className='col-xs-12'>
             <p>Title</p>
@@ -59,7 +60,7 @@ export default class GroupCreationWidget extends Component {
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   }
 

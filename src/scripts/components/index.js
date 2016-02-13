@@ -9,6 +9,7 @@ import NoteList from './NoteList'
 import NoteCard from './NoteCard'
 import NoteCreationWidget from './NoteCreationWidget'
 import GroupCreationWidget from './GroupCreationWidget'
+import RelatedGroupsWidget from './RelatedGroupsWidget'
 
 export {
   Topbar,
@@ -21,5 +22,6 @@ export {
   NoteList,
   NoteCard,
   NoteCreationWidget,
-  GroupCreationWidget
+  GroupCreationWidget,
+  RelatedGroupsWidget
 }

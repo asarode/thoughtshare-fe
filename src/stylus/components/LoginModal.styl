@@ -1,16 +1,31 @@
+.LoginModal-wrap
+  display: hidden
+  overflow: hidden
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  overflow-y: scroll
+
 .LoginModal-overlay
   position: absolute
   top: 0
-  bottom: 0
   left: 0
-  right: 0
+  width: 100vw
   background: transparentify(black, 0.8)
   display: flex
   justify-content: center
-  align-items: center
 
 .LoginModal
   background: white
-  height: 75vh
-  width: 50vw
-  margin: 20px
+  width: 100%
+  max-width: 780px
+  margin: 2rem
+  
+  .group
+    padding: 30px
+  
+.LoginModal-group-login
+  background: #fafafa
+

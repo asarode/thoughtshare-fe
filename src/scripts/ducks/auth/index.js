@@ -6,6 +6,8 @@ import { createReducer } from '../../utils'
 const LOGIN_REQUEST = 'LOGIN_REQUEST'
 const LOGIN_DONE = 'LOGIN_DONE'
 const LOGOUT_LOCAL = 'LOGOUT_LOCAL'
+const CREATE_REQUEST = 'CREATE_REQUEST_USER'
+const CREATE_DONE = 'CREATE_DONE_USER'
 
 const initState = I.fromJS({
   token: null,
@@ -14,6 +16,25 @@ const initState = I.fromJS({
   error: []
 })
 const auth = createReducer(initState, {
+  [CREATE_REQUEST](state, action) {
+    return state.merge({
+      error: [],
+      isLoading: true
+    })
+  },
+  [CREATE_DONE](state, action) {
+    const { payload, error } = action
+    if (error) {
+      return state.merge({
+        error: payload,
+        isLoading: false
+      })
+    }
+    return state.merge({
+      error: [],
+      isLoading: false
+    })
+  },
   [LOGIN_REQUEST](state, action) {
     return state.merge({
       error: [],
@@ -64,6 +85,25 @@ export const login = (username, password) => dispatch => {
     })
 }
 
+export const create = ({username, email, password}) => dispatch => {
+  dispatch(createRequest())
+  request
+    .post('http://localhost:4000/api/v2/users')
+    .type('application/json')
+    .send({
+      username,
+      email,
+      password
+    })
+    .then(res => {
+      dispatch(login(username, password))
+      dispatch(createDone(null, res.body))
+    })
+    .error(err => {
+      dispatch(createDone(err.body))
+    })
+}
+
 export const loginLocal = token => dispatch => {
   dispatch(loginDone(null, token))
 }
@@ -71,17 +111,19 @@ export const loginLocal = token => dispatch => {
 export const logoutLocal = () => {
   localStorage.removeItem('token')
   return {
-    type: LOGOUT_LOCAL,
-    payload: null
+    type: LOGOUT_LOCAL
   }
 }
 
 const loginRequest = () => {
   return {
-    type: LOGIN_REQUEST,
-    payload: null
+    type: LOGIN_REQUEST
   }
 }
+
+const createRequest = () => ({
+  type: CREATE_REQUEST
+})
 
 const loginDone = (err, token) => {
   if (err) {
@@ -102,6 +144,20 @@ const loginDone = (err, token) => {
       username,
       email
     }
+  }
+}
+
+const createDone = (err, token) => {
+  if (err) {
+    return {
+      type: CREATE_DONE,
+      payload: err.errors,
+      error: true
+    }
+  }
+
+  return {
+    type: CREATE_DONE
   }
 }
 

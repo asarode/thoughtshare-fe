@@ -18,14 +18,13 @@ export default class Topbar extends Component {
 
   render() {
     const currentUser = this.props.auth.getIn(['currentUser'])
-    return <div className='Topbar'>
+    return <div className='Topbar middle-xs between-xs'>
       <div
-        className='group-left'
+        className='col-xs'
         onClick={() => this.props.history.pushState(null, '')}>
         ThoughtShare
       </div>
-      <div className='group-right'>
-        <div className='item'>About</div>
+      <div className='col-xs end-xs'>
         <div className='item'>
           {
             currentUser

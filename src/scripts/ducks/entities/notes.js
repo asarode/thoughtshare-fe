@@ -31,7 +31,6 @@ const notes = createReducer(initState, {
         isLoadingList: false
       })
     }
-    console.log(payload.meta)
     return state.merge({
       isLoadingList: false
     })
@@ -78,8 +77,7 @@ export const fetchList = (input, limit=10, skip=0) => dispatch => {
 }
 
 const fetchListRequest = () => ({
-  type: FETCH_LIST_REQUEST,
-  payload: null
+  type: FETCH_LIST_REQUEST
 })
 
 const fetchListDone = (err, body) => {
@@ -142,8 +140,7 @@ export const create = ({ token, groupId, link, description }) => dispatch => {
 }
 
 const createRequest = () => ({
-  type: CREATE_REQUEST,
-  payload: null
+  type: CREATE_REQUEST
 })
 
 const createDone = (err, body) => {

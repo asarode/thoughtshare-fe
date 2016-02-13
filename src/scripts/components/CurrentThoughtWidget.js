@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import cx from 'classname'
 import moment from 'moment'
 
+import { RelatedGroupsWidget } from '.'
+
 export default class CurrentThoughtWidget extends Component {
   constructor(props) {
     super(props)
@@ -48,19 +50,4 @@ export default class CurrentThoughtWidget extends Component {
       groups={this.props.relatedGroups}
       goToGroup={this.props.goToGroup} />
   }
-}
-
-const RelatedGroupsWidget = ({ groups, goToGroup }) => {
-  const groupNodes = groups.map(group => {
-    return <div
-      key={group.id}
-      className='related-item'
-      onClick={() => goToGroup(group.id)}>
-      <p className='clickable'>{group.title}</p>
-    </div>
-  })
-
-  return <div className='RelatedGroupsWidget'>
-    {groupNodes}
-  </div>
 }

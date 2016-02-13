@@ -45,7 +45,8 @@ export default class ThoughtView extends Component {
       createNote={this.createNote}
       isLoggedIn={this.isLoggedIn}
       requestLogin={this.requestLogin}
-      createGroup={this.createGroup} />
+      createGroup={this.createGroup}
+      isOwner={this.isOwner} />
   }
 
   get hasThoughtData() {
@@ -157,5 +158,16 @@ export default class ThoughtView extends Component {
 
   get isCreatingNote() {
     return this.props.entities.notes.getIn(['isLoadingCreate'])
+  }
+
+  get isOwner() {
+    const currentUsername = this.props.auth.getIn(['currentUser', 'username'])
+    const thoughtUsername = this.props.entities.groups.getIn(['docs', this.props.params.id, 'creator', 'username'])
+    if (
+      !currentUsername
+      || !thoughtUsername
+    ) return false
+
+    return thoughtUsername === currentUsername
   }
 }

@@ -103,8 +103,7 @@ export const fetchList = (input, limit=10, skip=0) => dispatch => {
 }
 
 const fetchListRequest = () => ({
-  type: FETCH_LIST_REQUEST,
-  payload: null
+  type: FETCH_LIST_REQUEST
 })
 
 const fetchListDone = (err, body) => {
@@ -150,8 +149,7 @@ export const fetchOne = id => dispatch => {
 }
 
 const fetchOneRequest = () => ({
-  type: FETCH_ONE_REQUEST,
-  payload: null
+  type: FETCH_ONE_REQUEST
 })
 
 const fetchOneDone = (err, body) => {
@@ -201,8 +199,7 @@ export const create = ({ token, title, description, groupId }) => dispatch => {
 }
 
 const createRequest = () => ({
-  type: CREATE_REQUEST,
-  payload: null
+  type: CREATE_REQUEST
 })
 
 const createDone = (err, body) => {

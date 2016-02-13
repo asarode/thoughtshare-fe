@@ -52,6 +52,7 @@ export default class ThoughtPage extends Component {
       <div className='row'>
         <div className='col-xs-12 col-sm-10 col-md-8 col-lg-6'>
           <GroupCreationWidget
+            isOwner={this.props.isOwner}
             isLoggedIn={this.props.isLoggedIn}
             requestLogin={this.props.requestLogin}
             createGroup={this.props.createGroup} />

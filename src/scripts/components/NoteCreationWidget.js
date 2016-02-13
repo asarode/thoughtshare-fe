@@ -18,7 +18,7 @@ export default class NoteCreationWidget extends Component {
   render() {
     return <div className='NoteCreationWidget card'>
       <p className='content-row header'>Add a note</p>
-      <form className='content-row'>
+      <div className='form content-row'>
         <div className='form-row row start-xs'>
           <div className='col-xs-12'>
             <p>Link</p>
@@ -41,7 +41,7 @@ export default class NoteCreationWidget extends Component {
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   }
 
