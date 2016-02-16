@@ -33,12 +33,12 @@ export default class ThoughtPage extends Component {
 
   render() {
     if (!this.props.hasThoughtData) {
-      return <div>Loading...</div>
+      return <div className='row center-xs'>Loading...</div>
     }
 
     return <div>
-      <div className='row'>
-        <div className='col-xs-12 col-sm-10 col-md-8 col-lg-6'>
+      <div className='row center-xs'>
+        <div className='col-xs-12 col-sm-10 col-md-8 col-lg-6 start-xs'>
           <CurrentThoughtWidget
             hasThoughtData={this.props.hasThoughtData}
             thought={this.props.thought}
@@ -49,8 +49,8 @@ export default class ThoughtPage extends Component {
             goToGroup={this.props.goToGroup} />
         </div>
       </div>
-      <div className='row'>
-        <div className='col-xs-12 col-sm-10 col-md-8 col-lg-6'>
+      <div className='row center-xs'>
+        <div className='col-xs-12 col-sm-10 col-md-8 col-lg-6 start-xs'>
           <GroupCreationWidget
             isOwner={this.props.isOwner}
             isLoggedIn={this.props.isLoggedIn}
@@ -58,8 +58,8 @@ export default class ThoughtPage extends Component {
             createGroup={this.props.createGroup} />
         </div>
       </div>
-      <div className='row'>
-        <div className='col-xs-12 col-sm-10 col-md-8 col-lg-6'>
+      <div className='row center-xs'>
+        <div className='col-xs-12 col-sm-10 col-md-8 col-lg-6 start-xs'>
           <NoteCreationWidget
             isCreatingNote={this.props.isCreatingNote}
             createNote={this.props.createNote}
@@ -67,8 +67,8 @@ export default class ThoughtPage extends Component {
             requestLogin={this.props.requestLogin} />
         </div>
       </div>
-      <div className='row'>
-        <div className='col-xs-12 col-sm-10 col-md-8 col-lg-6'>
+      <div className='row center-xs'>
+        <div className='col-xs-12 col-sm-10 col-md-8 col-lg-6 start-xs'>
           <NoteList
             hasNotesData={this.props.hasNotesData}
             notes={this.props.notes} />

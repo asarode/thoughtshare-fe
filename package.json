@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "build": "./node_modules/.bin/webpack --config webpack.config.production.js",
+    "build": "NODE_ENV=production webpack -p --config webpack.production.config.js",
     "stylus": "stylus -u autoprefixer-stylus --watch 'stylus/index.styl' --out 'dist/index.css'",
     "lint": "./node_modules/.bin/eslint ."
   },

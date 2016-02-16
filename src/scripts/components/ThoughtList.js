@@ -16,11 +16,8 @@ export default class ThoughtList extends Component {
   render() {
     const thoughts = this.props.entities.thoughts.getIn(['docs']).toJS()
     const thoughtIds = Object.keys(thoughts)
-    return <div className='ThoughtList row'>
-      <div className='col-xs-12
-                      col-sm-10
-                      col-md-8
-                      col-lg-6'>
+    return <div className='ThoughtList row center-xs'>
+      <div className='col-xs-12 col-sm-10 col-md-8 col-lg-6 start-xs'>
         {
           thoughtIds.map(id => {
             const thought = thoughts[id]

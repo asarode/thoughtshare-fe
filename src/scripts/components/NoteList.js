@@ -9,14 +9,14 @@ export default class NoteList extends Component {
   
   render() {
     if (!this.props.hasNotesData) {
-      return <div>Loading...</div>
+      return <div className='row center-xs'>Loading...</div>
     }
 
     const noteNodes = this.props.notes
       .map(note => (<NoteCard key={note.id} note={note} />))
 
-    return <div className='NoteList'>
+    return <ul className='NoteList card-group'>
       {noteNodes}
-    </div>
+    </ul>
   }
 }

@@ -9,24 +9,21 @@ export default class ThoughtCreationPage extends Component {
 
   render() {
     return <div className='row center-xs'>
-      <form className='ThoughtCreationPage col-xs-12
-                                           col-sm-10
-                                           col-md-8
-                                           col-lg-6'>
-        <div className='form-row row start-xs'>
+      <form className='ThoughtCreationPage card col-xs-12 col-sm-10 col-md-8 col-lg-6'>
+        <div className='form-row row start-xs vmar-normal'>
           <div className='col-xs-12'>
             <p>Title</p>
             <input type='text' ref='title'/>
           </div>
         </div>
-        <div className='form-row row start-xs'>
+        <div className='form-row row start-xs vmar-normal'>
           <div className='col-xs-12'>
             <p>Description</p>
             <textarea ref='description'></textarea>
           </div>
         </div>
-        <div className='form-row row start-xs'>
-          <div className='col-xs-12'>
+        <div className='form-row row vmar-normal end-xs'>
+          <div className='col-xs'>
             <button
               className='button-heavy'
               onClick={() => this.handleCreate()}>

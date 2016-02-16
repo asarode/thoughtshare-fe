@@ -17,6 +17,13 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class LoginView extends Component {
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    if (nextProps.auth.get('currentUser')) {
+      nextProps.uiActs.closeLogin()
+    }
+  }
+
   render() {
     if (!this.props.ui.getIn(['loginActive'])) return null
     return <LoginModal

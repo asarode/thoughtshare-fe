@@ -20,6 +20,8 @@ export default class NoteCreationWidget extends Component {
       <p className='content-row header'>Add a note</p>
       <div className='form content-row'>
         <div className='form-row row start-xs'>
+        </div>
+        <div className='form-row row start-xs'>
           <div className='col-xs-12'>
             <p>Link</p>
             <input ref='link' type='text' />
@@ -31,7 +33,7 @@ export default class NoteCreationWidget extends Component {
             <textarea ref='description'></textarea>
           </div>
         </div>
-        <div className='form-row row start-xs'>
+        <div className='form-row row end-xs'>
           <div className='col-xs-12'>
             <button
               ref='create'

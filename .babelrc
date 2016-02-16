@@ -6,6 +6,11 @@
         "transform-decorators-legacy"
       ]
     },
+    "production": {
+      "plugins": [
+        "transform-decorators-legacy"
+      ]
+    },
     "development": {
       "plugins": [
         "transform-runtime",

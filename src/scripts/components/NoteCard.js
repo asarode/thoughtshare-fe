@@ -8,9 +8,9 @@ export default class NoteCard extends Component {
 
   render() {
     const { note } = this.props
-    return <div className='NoteCard card'>
+    return <li className='NoteCard card'>
       <div className='content-row header'>
-        <a href={note.link} className='clickable'>{note.link}</a>
+        <a href={note.link} className='clickable'>{note.title || note.link}</a>
       </div>
       <div className='content-row content'>
         <p>{note.desc}</p>
@@ -18,6 +18,6 @@ export default class NoteCard extends Component {
       <div className='content-row details'>
         <p>Posted {moment(note.created_at).fromNow()} by {note.creator.username}</p>
       </div>
-    </div>
+    </li>
   }
 }

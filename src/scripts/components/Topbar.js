@@ -20,6 +20,7 @@ export default class Topbar extends Component {
     const currentUser = this.props.auth.getIn(['currentUser'])
     return <div className='Topbar middle-xs between-xs'>
       <div
+        id='nav-logo'
         className='col-xs'
         onClick={() => this.props.history.pushState(null, '')}>
         ThoughtShare

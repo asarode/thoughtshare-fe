@@ -22,7 +22,7 @@ export default class GroupCreationWidget extends Component {
     if (this.state.active) return
 
     return <button className='button-heavy' onClick={this.handleOpen}>
-      Create New Branch
+      Create New Topic
     </button>
   }
 
@@ -30,7 +30,7 @@ export default class GroupCreationWidget extends Component {
     if (!this.state.active) return
 
     return <div className='card'>
-      <p className='content-row header'>Create a branch</p>
+      <p className='content-row header'>Create a topic</p>
       <div className='form content-row'>
         <div className='form-row row start-xs'>
           <div className='col-xs-12'>
@@ -44,19 +44,19 @@ export default class GroupCreationWidget extends Component {
             <textarea ref='description'></textarea>
           </div>
         </div>
-        <div className='form-row row start-xs'>
+        <div className='form-row row end-xs'>
           <div className='col-xs'>
-            <button
-              ref='create'
-              className='button-heavy'
-              onClick={() => this.handleCreation()}>
-              Create
-            </button>
             <button
               ref='create'
               className='button-light'
               onClick={() => this.setState({ active: false })}>
               Cancel
+            </button>
+            <button
+              ref='create'
+              className='button-heavy'
+              onClick={() => this.handleCreation()}>
+              Create
             </button>
           </div>
         </div>

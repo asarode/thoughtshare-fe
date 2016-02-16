@@ -25,17 +25,19 @@ export default class CurrentThoughtWidget extends Component {
 
   render() {
     const { thought } = this.props
-    return <div className='CurrentThoughtWidget card'>
-      <div className='header content-row'>
-        <p>Title: {thought.title}</p>
+    return <div className='CurrentThoughtWidget card-group vmar-normal'>
+      <div className='card'>
+        <div className='header content-row'>
+          <h3>{thought.title}</h3>
+        </div>
+        <div className='body content-row'>
+          <p>{thought.desc}</p>
+        </div>
+        <div className='details content-row'>
+          <p>Posted {moment(thought.created_at).fromNow()} by {thought.creator.username}</p>
+        </div>
       </div>
-      <div className='body content-row'>
-        <p>Description: {thought.desc}</p>
-      </div>
-      <div className='details content-row'>
-        <p>Posted {moment(thought.created_at).fromNow()} by {thought.creator.username}</p>
-      </div>
-      <div className='content-row'>
+      <div className='card card-muted'>
         {this.relatedGroups}
       </div>
     </div>
@@ -43,7 +45,7 @@ export default class CurrentThoughtWidget extends Component {
 
   get relatedGroups() {
     if (!this.props.hasRelatedGroupsData) {
-      return <div>Loading...</div>
+      return <div className='row center-xs'>Loading...</div>
     }
 
     return <RelatedGroupsWidget

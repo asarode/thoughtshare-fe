@@ -9,7 +9,7 @@ const logger = createLogger()
 const middleWare = [thunk, logger]
 
 if (process.env.NODE_ENV === 'production') {
-  finalCreateStore = applyMiddleware(...middleWare)(createStore)
+  finalCreateStore = applyMiddleware(thunk)(createStore)
 } else {
   finalCreateStore = compose(
     applyMiddleware(...middleWare),
