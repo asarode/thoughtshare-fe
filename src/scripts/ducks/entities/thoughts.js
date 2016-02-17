@@ -1,7 +1,7 @@
 import I from 'immutable'
 import qs from 'query-string'
 import request from 'superagent-bluebird-promise'
-import { createReducer } from '../../utils'
+import { createReducer, api } from '../../utils'
 import { noteActs, groupActs } from '.'
 
 const FETCH_LIST_REQUEST = 'FETCH_REQUEST_THOUGHTS'
@@ -78,7 +78,7 @@ export const fetchList = (limit=10, skip=0) => dispatch => {
   dispatch(fetchListRequest())
   const filter = qs.stringify({ limit, skip })
   request
-    .get(`http://localhost:4000/api/v2/thoughts?${filter}`)
+    .get(`${api.endpoint}/api/v2/thoughts?${filter}`)
     .then(res => {
       dispatch(fetchListDone(null, res.body))
     })
@@ -122,7 +122,7 @@ const fetchListDone = (err, body) => {
 export const fetchOne = id => dispatch => {
   dispatch(fetchOneRequest())
   request
-    .get(`http://localhost:4000/api/v2/groups/${id}`)
+    .get(`${api.endpoint}/api/v2/groups/${id}`)
     .then(res => {
       dispatch(fetchOneDone(null, res.body))
       dispatch(groupActs.fetchList(res.body.links.groups))
@@ -167,7 +167,7 @@ const fetchOneDone = (err, body) => {
 export const create = ({ token, title, description }) => dispatch => {
   dispatch(createRequest())
   request
-    .post(`http://localhost:4000/api/v2/thoughts`)
+    .post(`${api.endpoint}/api/v2/thoughts`)
     .type('application/json')
     .set('Authorization', token)
     .send({

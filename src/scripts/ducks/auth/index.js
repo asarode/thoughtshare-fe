@@ -1,7 +1,7 @@
 import I from 'immutable'
 import jwt from 'jsonwebtoken'
 import request from 'superagent-bluebird-promise'
-import { createReducer } from '../../utils'
+import { createReducer, api } from '../../utils'
 
 const LOGIN_REQUEST = 'LOGIN_REQUEST'
 const LOGIN_DONE = 'LOGIN_DONE'
@@ -70,7 +70,7 @@ const auth = createReducer(initState, {
 export const login = (username, password) => dispatch => {
   dispatch(loginRequest())
   request
-    .post('http://localhost:4000/api/v2/login')
+    .post(`${api.endpoint}/api/v2/login`)
     .type('application/json')
     .send({
       username,
@@ -88,7 +88,7 @@ export const login = (username, password) => dispatch => {
 export const create = ({username, email, password}) => dispatch => {
   dispatch(createRequest())
   request
-    .post('http://localhost:4000/api/v2/users')
+    .post(`${api.endpoint}/api/v2/users`)
     .type('application/json')
     .send({
       username,

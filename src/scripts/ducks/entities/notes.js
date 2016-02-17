@@ -1,7 +1,7 @@
 import I from 'immutable'
 import qs from 'query-string'
 import request from 'superagent-bluebird-promise'
-import { createReducer } from '../../utils'
+import { createReducer, api } from '../../utils'
 import { groupActs } from '.'
 
 const FETCH_LIST_REQUEST = 'FETCH_LIST_REQUEST_NOTES'
@@ -63,8 +63,8 @@ export const fetchList = (input, limit=10, skip=0) => dispatch => {
   dispatch(fetchListRequest())
   const filter = qs.stringify({ limit, skip })
   const url = input.includes('/api')
-    ? `http://localhost:4000${input}`
-    : `http://localhost:4000/api/v2/groups/${input}/notes`
+    ? `${api.endpoint}${input}`
+    : `${api.endpoint}/api/v2/groups/${input}/notes`
   request
     .get(url)
     .then(res => {
@@ -121,7 +121,7 @@ const fetchListDone = (err, body) => {
 export const create = ({ token, groupId, link, description }) => dispatch => {
   dispatch(createRequest())
   request
-    .post(`http://localhost:4000/api/v2/groups/${groupId}/notes`)
+    .post(`${api.endpoint}/api/v2/groups/${groupId}/notes`)
     .type('application/json')
     .set('Authorization', token)
     .send({
