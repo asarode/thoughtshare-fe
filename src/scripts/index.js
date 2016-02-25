@@ -1,5 +1,5 @@
 require('es6-promise').polyfill()
-import 'whatwg-fetch'
+import 'isomorphic-fetch'
 
 import React from 'react'
 import { render } from 'react-dom'

@@ -9,6 +9,10 @@ const LOGOUT_LOCAL = 'LOGOUT_LOCAL'
 const CREATE_REQUEST = 'CREATE_REQUEST_USER'
 const CREATE_DONE = 'CREATE_DONE_USER'
 
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+const LOGIN_FAIL = 'LOGIN_FAIL'
+const LOGIN_COMPLETE = 'LOGIN_COMPLETE'
+
 const initState = I.fromJS({
   token: null,
   currentUser: null,
@@ -16,49 +20,69 @@ const initState = I.fromJS({
   error: []
 })
 const auth = createReducer(initState, {
-  [CREATE_REQUEST](state, action) {
-    return state.merge({
-      error: [],
-      isLoading: true
-    })
-  },
-  [CREATE_DONE](state, action) {
-    const { payload, error } = action
-    if (error) {
-      return state.merge({
-        error: payload,
-        isLoading: false
-      })
-    }
-    return state.merge({
-      error: [],
-      isLoading: false
-    })
-  },
-  [LOGIN_REQUEST](state, action) {
-    return state.merge({
-      error: [],
-      isLoading: true
-    })
-  },
-  [LOGIN_DONE](state, action) {
-    const { payload, error } = action
-    if (error) {
-      return state.merge({
-        error: payload,
-        isLoading: false
-      })
-    }
-    return state.merge({
-      token: payload.token,
-      currentUser: {
-        id: payload.id,
-        username: payload.username,
-        email: payload.email
-      },
-      isLoading: false
-    })
-  },
+  // [CREATE_REQUEST](state, action) {
+  //   return state.merge({
+  //     error: [],
+  //     isLoading: true
+  //   })
+  // },
+  // [CREATE_DONE](state, action) {
+  //   const { payload, error } = action
+  //   if (error) {
+  //     return state.merge({
+  //       error: payload,
+  //       isLoading: false
+  //     })
+  //   }
+  //   return state.merge({
+  //     error: [],
+  //     isLoading: false
+  //   })
+  // },
+  // [LOGIN_REQUEST](state, action) {
+  //   return state.merge({
+  //     error: [],
+  //     isLoading: true
+  //   })
+  // },
+  // [LOGIN_DONE](state, action) {
+  //   const { payload, error } = action
+  //   if (error) {
+  //     return state.merge({
+  //       error: payload,
+  //       isLoading: false
+  //     })
+  //   }
+  //   return state.merge({
+  //     token: payload.token,
+  //     currentUser: {
+  //       id: payload.id,
+  //       username: payload.username,
+  //       email: payload.email
+  //     },
+  //     isLoading: false
+  //   })
+  // },
+  // [LOGIN_SUCCESS](state, { payload }) {
+  //   return state.merge({
+  //     token: payload.token,
+  //     currentUser: {
+  //       id: payload.id,
+  //       username: payload.username,
+  //       email: payload.email
+  //     }
+  //   })
+  // },
+  // [LOGIN_FAIL](state, { payload }) {
+  //   return state.merge({
+  //     error: payload
+  //   })
+  // },
+  // [LOGIN_COMPLETE](state, { type, payload }) {
+  //   return state.merge({
+  //     isLoading: false
+  //   })
+  // },
   [LOGOUT_LOCAL](state, action) {
     return state.merge({
       token: null,
