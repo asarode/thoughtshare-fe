@@ -1,30 +1,28 @@
 import I from 'immutable'
 import { createReducer } from '../../utils'
 
-import { LOGIN, LOGOUT } from '../actionCreators'
+import { LOGIN, LOGOUT } from '../actionConstants'
 
 const initState = I.fromJS({
   docs: {
     token: null,
     currentUser: null,
   },
-  CREATE_ONE: {
-    isLoading: false,
-    errors: []
-  }
+  isLoading: false,
+  errors: []
 })
 
 const auth = createReducer(initState, {
-  [LOGIN.CREATE_ONE.REQUEST](state, action) {
+  [LOGIN.REQUEST](state, action) {
     return state
-    .mergeIn(['CREATE_ONE'], {
+    .merge({
       errors: [],
       isLoading: true
     })
   },
-  [LOGIN.CREATE_ONE.SUCCESS](state, { payload }) {
+  [LOGIN.SUCCESS](state, { payload }) {
     return state
-    .mergeIn(['data'], {
+    .mergeIn(['docs'], {
       token: payload.token,
       currentUser: {
         id: payload.id,
@@ -33,13 +31,13 @@ const auth = createReducer(initState, {
       }
     })
   },
-  [LOGIN.CREATE_ONE.FAIL](state, action) {
+  [LOGIN.FAIL](state, action) {
     return state
-    .setIn(['CREATE_ONE', 'errors'], payload)
+    .set('errors', payload)
   },
-  [LOGIN.CREATE_ONE.COMPLETE](state, action) {
+  [LOGIN.COMPLETE](state, action) {
     return state
-    .setIn(['CREATE_ONE', 'isLoading'], false)
+    .set('isLoading', false)
   }
 })
 

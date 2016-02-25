@@ -17,7 +17,7 @@ export default class Topbar extends Component {
   }
 
   render() {
-    const currentUser = this.props.auth.getIn(['currentUser'])
+    const currentUser = this.props.auth.getIn(['docs', 'currentUser'])
     return <div className='Topbar middle-xs between-xs'>
       <div
         id='nav-logo'

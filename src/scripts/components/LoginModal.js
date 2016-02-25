@@ -63,7 +63,7 @@ export default class LoginModal extends Component {
                 <h1>Or just login</h1>
                 <div className='form'>
                   <div className='form-row'>
-                    {this.props.auth.getIn(['error']).toJS().map((err, i) => {
+                    {this.props.auth.getIn(['errors']).toJS().map((err, i) => {
                       return <p key={i}>{err.detail}</p>
                     })}
                   </div>

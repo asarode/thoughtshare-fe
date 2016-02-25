@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import auth from './auth'
+import auth from '../reducers/auth'
 import entities from './entities'
 import ui from './ui'
 
