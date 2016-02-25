@@ -9,7 +9,10 @@ export default class LoginModal extends Component {
     ui: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
     uiActs: PropTypes.object.isRequired,
-    authActs: PropTypes.object.isRequired
+    authActs: PropTypes.object.isRequired,
+    authFlow: PropTypes.func.isRequired,
+    registerFlow: PropTypes.func.isRequired,
+    closeLogin: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -61,7 +64,6 @@ export default class LoginModal extends Component {
                 <div className='form'>
                   <div className='form-row'>
                     {this.props.auth.getIn(['error']).toJS().map((err, i) => {
-                      console.log(err)
                       return <p key={i}>{err.detail}</p>
                     })}
                   </div>
@@ -93,15 +95,20 @@ export default class LoginModal extends Component {
 
   @autobind
   handleLogin() {
-    this.props.authActs.login(this.refs.loginUsername.value, this.refs.loginPassword.value)
+    const username = this.refs.loginUsername.value
+    const password = this.refs.loginPassword.value
+    this.props.authFlow({ username, password })
   }
 
   @autobind
   handleRegister() {
-    this.props.authActs.create({
-      username: this.refs.registerUsername.value,
-      email: this.refs.registerEmail.value,
-      password: this.refs.registerPassword.value
+    const username = this.refs.registerUsername.value
+    const email = this.refs.registerEmail.value
+    const password = this.refs.registerPassword.value
+    this.props.registerFlow({
+      username,
+      email,
+      password
     })
   }
 
