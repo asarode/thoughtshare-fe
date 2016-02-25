@@ -14,7 +14,7 @@ import jwt from 'jsonwebtoken'
 import { tokenStorage } from '../utils'
 
 function* loginFlow({ payload }) {
-  put(authenticate.request())
+  yield put(authenticate.request())
   try {
     const res = yield api.authenticate({
       username: payload.username,
@@ -23,10 +23,12 @@ function* loginFlow({ payload }) {
     const { token } = res.data
     call(tokenStorage.save, token)
     const { id, username, email } = JSON.parse(jwt.decode(token).sub)
-    put(authenticate.success({ token, id, username, email }))
+    yield put(authenticate.success({ token, id, username, email }))
+    yield put(authenticate.complete())
     yield put(closeLogin())
   } catch(err) {
     console.error(err)
+    yield put(authenticate.complete())
     yield put(authenticate.fail(err.errors))
   }
 }
@@ -39,11 +41,13 @@ function* registerFlow({ payload }) {
       email: payload.email,
       password: payload.password
     })
+    yield put(createOneUser.complete())
     yield call(loginFlow, {
       payload: { username, password }
     })
   } catch(err) {
     console.error(err)
+    yield put(createOneUser.complete())
     yield put(createOneUser.fail(err.errors))
   }
 }
