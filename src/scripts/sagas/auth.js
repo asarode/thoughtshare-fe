@@ -4,14 +4,25 @@ import * as api from '../api'
 import {
   authenticate,
   createOneUser,
-  closeLogin
+  closeLogin,
+  logout
 } from '../actionCreators'
 import {
   AUTH_FLOW,
-  REGISTER_FLOW
+  REGISTER_FLOW,
+  LOGOUT_FLOW,
+  PROCESS_TOKEN_FLOW
 } from '../actionConstants'
 import jwt from 'jsonwebtoken'
 import { tokenStorage } from '../utils'
+
+function* processTokenFlow() {
+  const token = yield call(tokenStorage.get)
+  if (!token) return
+
+  const { id, username, email } = JSON.parse(jwt.decode(token).sub)
+  yield put(authenticate.success({ token, id, username, email }))
+}
 
 function* loginFlow({ payload }) {
   yield put(authenticate.request())
@@ -21,9 +32,8 @@ function* loginFlow({ payload }) {
       password: payload.password
     })
     const { token } = res.data
-    call(tokenStorage.save, token)
-    const { id, username, email } = JSON.parse(jwt.decode(token).sub)
-    yield put(authenticate.success({ token, id, username, email }))
+    yield call(tokenStorage.set, token)
+    yield call(processTokenFlow)
     yield put(authenticate.complete())
     yield put(closeLogin())
   } catch(err) {
@@ -36,11 +46,8 @@ function* loginFlow({ payload }) {
 function* registerFlow({ payload }) {
   yield put(createOneUser.request())
   try {
-    const res = yield api.createOneUser({
-      username: payload.username,
-      email: payload.email,
-      password: payload.password
-    })
+    const { username, email, password } = payload
+    const res = yield api.createOneUser({ username, email, password})
     yield put(createOneUser.complete())
     yield call(loginFlow, {
       payload: { username, password }
@@ -52,8 +59,9 @@ function* registerFlow({ payload }) {
   }
 }
 
-function* logoutFlow({ type, payload }) {
-
+function* logoutFlow({ payload }) {
+  yield call(tokenStorage.remove)
+  yield put(logout())
 }
 
 export function* watchLogin() {
@@ -65,5 +73,9 @@ export function* watchRegister() {
 }
 
 export function* watchLogout() {
-  yield* takeLatest('LOGOUT', logoutFlow)
+  yield* takeLatest(LOGOUT_FLOW, logoutFlow)
+}
+
+export function* watchProcessToken() {
+  yield* takeLatest(PROCESS_TOKEN_FLOW, processTokenFlow)
 }

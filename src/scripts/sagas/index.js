@@ -1,11 +1,13 @@
 import { 
   watchLogin,
   watchLogout,
-  watchRegister
+  watchRegister,
+  watchProcessToken
 } from './auth'
 
 export {
   watchLogin,
   watchLogout,
-  watchRegister
+  watchRegister,
+  watchProcessToken
 }

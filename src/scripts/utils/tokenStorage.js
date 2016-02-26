@@ -1,8 +1,11 @@
-export function save(token) {
-  localStorage.setItem('token', token)
-  console.log(localStorage.getItem('token'))
+export function get() {
+  return localStorage.getItem('@@THOUGHT_SHARE_TOKEN')
 }
 
-export function purge() {
-  localStorage.removeItem('token')
+export function set(token) {
+  localStorage.setItem('@@THOUGHT_SHARE_TOKEN', token)
+}
+
+export function remove() {
+  localStorage.removeItem('@@THOUGHT_SHARE_TOKEN')
 }
