@@ -25,3 +25,5 @@ export const USERS = genEntity('USERS', 'CREATE_ONE')
 
 export const AUTH_FLOW = gen('AUTH_FLOW')
 export const REGISTER_FLOW = gen('REGISTER_FLOW')
+export const LOGOUT_FLOW = gen('LOGOUT_FLOW')
+export const PROCESS_TOKEN_FLOW = gen('PROCESS_TOKEN_FLOW')

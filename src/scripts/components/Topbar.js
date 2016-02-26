@@ -6,15 +6,9 @@ export default class Topbar extends Component {
     ui: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
     uiActs: PropTypes.object.isRequired,
-    authActs: PropTypes.object.isRequired
+    authActs: PropTypes.object.isRequired,
+    logoutFlow: PropTypes.func.isRequired
   };
-
-  componentWillMount() {
-    const token = localStorage.getItem('token')
-    if (token) {
-      this.props.authActs.loginLocal(token)
-    }
-  }
 
   render() {
     const currentUser = this.props.auth.getIn(['docs', 'currentUser'])
@@ -40,7 +34,7 @@ export default class Topbar extends Component {
   loggedInItem(currentUser) {
     return <span>
       Hello, {currentUser.username}
-      <button className='button-light' onClick={() => this.props.authActs.logoutLocal()}>Logout</button>
+      <button className='button-light' onClick={() => this.props.logoutFlow()}>Logout</button>
     </span>
   }
 

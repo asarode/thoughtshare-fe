@@ -38,6 +38,13 @@ const auth = createReducer(initState, {
   [LOGIN.COMPLETE](state, action) {
     return state
     .set('isLoading', false)
+  },
+  [LOGOUT](state, action) {
+    return state
+    .mergeIn(['docs'], {
+      token: null,
+      currentUser: null
+    })
   }
 })
 

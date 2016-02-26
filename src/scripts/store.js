@@ -3,12 +3,12 @@ import createSagaMiddleware from 'redux-saga'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 import rootReducer from './ducks/reducer'
-import { watchLogin, watchRegister, watchLogout } from './sagas'
+import { watchLogin, watchRegister, watchLogout, watchProcessToken } from './sagas'
 import { DevTools } from './containers'
 
 let finalCreateStore
 const logger = createLogger()
-const sagaMiddleware = createSagaMiddleware(watchLogin, watchRegister, watchLogout)
+const sagaMiddleware = createSagaMiddleware(watchLogin, watchRegister, watchLogout, watchProcessToken)
 const middleware = [thunk, logger, sagaMiddleware]
 const devMiddleware = [logger]
 
