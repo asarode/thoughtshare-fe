@@ -7,6 +7,6 @@ export {
   createReducer,
   keys,
   fatch,
-  api
+  api,
   tokenStorage,
 }
